@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.felipebueno.springshop.domain.Category;
+import com.felipebueno.springshop.payloads.CategoryPayload;
 import com.felipebueno.springshop.repositories.CategoryRepository;
 import com.felipebueno.springshop.services.exceptions.DataIntegrityException;
 import com.felipebueno.springshop.services.exceptions.ObjectNotFoundException;
@@ -54,5 +55,9 @@ public class CategoryService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		
 		return repository.findAll(pageRequest);
+	}
+	
+	public Category fromPayload(CategoryPayload payload) {
+		return new Category(payload.getId(), payload.getName());
 	}
 }
