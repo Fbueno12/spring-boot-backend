@@ -51,7 +51,7 @@ public class Client implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.document = document;
-		this.clientType = clientType.getCode();
+		this.clientType = (clientType == null) ? null : clientType.getCode();
 	}
 
 	public Integer getId() {
