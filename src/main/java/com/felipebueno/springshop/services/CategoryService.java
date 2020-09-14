@@ -22,4 +22,9 @@ public class CategoryService {
 				" not found, Type: " + Category.class.getName()));
 	}
 	
+	public Category insert(Category obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
+	
 }
