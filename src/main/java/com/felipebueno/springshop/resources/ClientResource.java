@@ -1,5 +1,6 @@
 package com.felipebueno.springshop.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.felipebueno.springshop.domain.Client;
 import com.felipebueno.springshop.payloads.ClientPayload;
+import com.felipebueno.springshop.payloads.NewClientPayload;
 import com.felipebueno.springshop.services.ClientService;
 
 @RestController
@@ -31,6 +34,15 @@ public class ClientResource {
 		Client client = service.find(id);
 		
 		return ResponseEntity.ok().body(client);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody NewClientPayload payload) {
+		Client obj = service.fromPayload(payload);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
