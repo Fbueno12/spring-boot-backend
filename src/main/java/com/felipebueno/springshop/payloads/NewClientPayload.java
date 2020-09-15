@@ -2,24 +2,49 @@ package com.felipebueno.springshop.payloads;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.felipebueno.springshop.services.validation.ClientInsert;
+
+@ClientInsert
 public class NewClientPayload implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caractéres")
 	private String name;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Email inválido")
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String document;
 	private Integer clientType;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String street;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String number;
 	private String complement;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String neighborhood;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String streetCode;
-
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
 
+	@NotNull
 	private Integer cidade_id;
 
 	public NewClientPayload() {
