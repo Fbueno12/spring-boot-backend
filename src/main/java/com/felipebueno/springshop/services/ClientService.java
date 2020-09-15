@@ -58,7 +58,7 @@ public class ClientService {
 			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException(
-					"Não é possivel excluir um cliente que possui pedidos ou endereços cadastrados");
+					"Não é possivel excluir um cliente que possui pedidos cadastrados");
 		}
 	}
 
